@@ -1,0 +1,39 @@
+﻿{% extends 'classroom/base.html' %}
+{% block content %}
+
+
+<div class="container">
+    <div class="jumbotron">
+{% if teacher.teacher_submit.count == 1 %}
+        <h2>No Marks Uploaded Yet</h2>
+{% else %}        
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>      
+                    <th scope="col">Sheet Name</th>
+                    <th scope="col">View Table</th>                        
+                    <th scope="col">Download Sheet</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Grade</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for sheet in teacher.teacher_upload.all %}   
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ sheet.sheet_name }}</td>
+                    <td><a class="btn btn-danger" href="{% url 'classroom:excel_view'  %}">View </a> </td>
+                    <td><a href="{{ sheet.result_sheet.url }}" class="btn btn-primary" target="_blank">Download</a></td>
+                    <td><a href="{% url 'classroom:SUM'  %}" class="btn btn-primary">Sum</a></td>
+                    <td><a href="{{ assignment.assignment.url }}" class="btn btn-danger">Grade</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}  
+</div>
+</div>
+{% endblock %}
+
